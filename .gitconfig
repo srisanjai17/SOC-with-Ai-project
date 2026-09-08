@@ -1,0 +1,19 @@
+# SOC with AI — Repository-level git configuration
+# This file is loaded by git when working in this repo.
+# Developers can override locally with: git config --local <key> <value>
+
+[commit]
+    # Sign all commits with SSH (GPG fallback: gpg.format=openpgp)
+    gpgsign = true
+
+[gpg]
+    # Use SSH for signing (Git 2.34+)
+    format = ssh
+
+[gpg "ssh"]
+    # Path to allowed signers file (relative to repo root)
+    allowedSignersFile = .allowed_signers
+
+# Optional: set your signing key if you have multiple SSH keys
+# [user]
+#     signingKey = ~/.ssh/id_ed25519

@@ -1,0 +1,17 @@
+{
+  "$comment": "Shared Conventional Commits rule-set. Consumed by (1) .githooks/commit-msg via SOC_COMMIT_TYPES / SOC_COMMIT_HEADER_MAX env overrides, (2) .githooks/prepare-commit-msg for branch→type pre-fill, and (3) the CI 'commits' job, which runs the same hook script over every pushed commit. Edit here to change all three; the hook defaults match these values.",
+  "types": ["feat", "fix", "docs", "style", "refactor", "perf", "test", "build", "ci", "chore", "revert", "security"],
+  "scopePattern": "^[a-z0-9_-]+$",
+  "headerMaxLength": 100,
+  "requireMatch": true,
+  "exemptions": ["^Merge ", "^Revert ", "^fixup!", "^squash!"],
+  "bypassEnv": "SOC_SKIP_COMMIT_MSG_CHECK",
+
+  "$commentConventions": "Conventions observed in the SOC commit history (git log --all): subjects are plain 'type: subject' — no emoji, no scopes. The only emoji in history is the 'Generated with Codebuff 🤖' line in commit BODIES, which is explicitly allowed; only the subject is emoji-checked. Scopes remain permitted by the hook (documented examples use them) but are unused in practice — tighten scopeUsage to 'forbidden' if you want them rejected too.",
+  "subjectEmoji": "forbidden",
+  "subjectEmojiNote": "Enforced byte-level: astral-plane UTF-8 (4-byte, lead byte >= 0xF0) is treated as emoji in the subject. 3-byte chars used by history (em-dash) and 2-byte accented Latin stay valid.",
+  "scopeUsage": "forbidden",
+  "bodyFootersAllowed": ["Generated with Codebuff 🤖", "Co-Authored-By: ..."],
+
+  "$commentGpg": "Signed commits (git commit --gpg-sign / -S) stay lint-clean: the commit-msg hook validates the subject but NEVER rewrites the message, and it runs before Git signs — so the signature always covers exactly what was validated. The prepare-commit-msg pre-fill edits the file only before signing. Body footers (incl. the 🤖 emoji) never affect validation."
+}

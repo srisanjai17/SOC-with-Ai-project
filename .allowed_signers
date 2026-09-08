@@ -1,0 +1,16 @@
+# SOC with AI — Allowed SSH signers for commit verification
+# Format: email key-type public-key
+#
+# To add a new signer:
+#   1. Ask them for: ssh-keygen -t ed25519 -C "email@example.com" -f ~/.ssh/id_ed25519
+#   2. Add their public key line below
+#   3. Commit this file
+#
+# Verify a signed commit:
+#   git log --show-signature -1 <commit>
+#
+# Bulk-verify recent commits:
+#   git log --show-signature --oneline -20
+
+# Example (replace with real keys):
+# developer@example.com ssh-ed25519 AAAA...base64...key

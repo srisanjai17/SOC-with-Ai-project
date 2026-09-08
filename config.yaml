@@ -1,0 +1,71 @@
+# SOC with AI — Configuration
+# Edit this file to customize your deployment
+
+server:
+  host: "0.0.0.0"
+  port: 8002
+  workers: 1
+
+capture:
+  # Network interface to capture from (auto-detected if empty)
+  interface: ""
+  # Maximum packets to keep in memory
+  max_packets: 50000
+  # BPF filter (e.g., "not port 8002" to exclude dashboard traffic)
+  bpf_filter: ""
+  # Capture mode: "live", "demo", "pcap"
+  mode: "auto"
+
+ai:
+  # Threat detection threshold (0.0 - 1.0)
+  detection_threshold: 0.5
+  # Auto-block threshold (risk score)
+  auto_block_threshold: 0.7
+  # Auto-quarantine threshold (risk score)
+  auto_quarantine_threshold: 0.5
+  # Enable RL feedback loop
+  feedback_enabled: true
+
+firewall:
+  # OS auto-detected, but you can override
+  # Options: "iptables", "netsh", "pf", "auto"
+  engine: "auto"
+  # Enable automatic firewall rules
+  auto_rules: true
+  # Maximum blocked IPs (oldest removed when exceeded)
+  max_blocked: 1000
+
+compliance:
+  # Enable audit logging
+  enabled: true
+  # Compliance frameworks to track
+  frameworks:
+    - SOC2
+    - GDPR
+    - HIPAA
+  # Maximum audit entries
+  max_entries: 100000
+
+suricata:
+  # Path to Suricata eve.json (leave empty to disable)
+  eve_json_path: ""
+  # Polling interval in seconds
+  poll_interval: 5
+
+zeek:
+  # Path to Zeek log directory (leave empty to disable)
+  log_dir: ""
+  # Log types to watch
+  log_types:
+    - conn
+    - dns
+    - http
+    - ssl
+
+dashboard:
+  # Auto-refresh interval in seconds
+  refresh_interval: 5
+  # Enable WebSocket streaming
+  websocket: true
+  # Enable offline mode (service worker)
+  offline_mode: true

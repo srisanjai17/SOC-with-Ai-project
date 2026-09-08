@@ -1,0 +1,18 @@
+{
+  "name": "soc-with-ai",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node build.mjs",
+    "build": "node build.mjs",
+    "preview": "vite preview",
+    "lint": "echo 'No linter configured'"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^7.9.1"
+  }
+}

@@ -1,0 +1,26 @@
+# ═══════════════════════════════════════════════════════════════════
+# SOC with AI — Ruff Linter Config
+# ═══════════════════════════════════════════════════════════════════
+
+target-version = "py312"
+line-length = 120
+
+[lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM"]
+ignore = [
+    "E501",   # line too long (handled by formatter)
+    "E741",   # ambiguous variable name
+    "F841",   # local variable assigned but never used
+    "F811",   # redefinition of unused name
+    "B008",   # function call in default argument
+    "SIM108", # use ternary operator
+]
+
+[lint.per-file-ignores]
+"tests/*" = ["F811", "E712"]
+"demo.py" = ["F841", "E712"]
+"train_and_evaluate.py" = ["F841"]
+
+[format]
+quote-style = "double"
+indent-style = "space"

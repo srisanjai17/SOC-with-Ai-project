@@ -1,0 +1,60 @@
+# SOC with AI — Full Monitoring Stack
+# Run: docker compose -f docker-compose.monitoring.yml up -d
+#
+# This starts:
+#   - SOC API on :8002
+#   - Prometheus on :9090 (scrapes SOC every 15s)
+#   - Grafana on :3000 (pre-configured with SOC dashboard)
+#
+# Default Grafana login: admin / admin
+
+version: '3.8'
+
+services:
+  soc:
+    build: .
+    ports:
+      - "8002:8002"
+    environment:
+      - SOC_ADMIN_MODE=demo
+    volumes:
+      - soc-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8002/api/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./grafana/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:10.4.1
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+
+volumes:
+  soc-data:
+  prometheus-data:
+  grafana-data:

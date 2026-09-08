@@ -1,0 +1,58 @@
+# Version control
+.git
+.gitignore
+
+# Freebuff/IDE
+.freebuff
+.freebuff/
+.vscode
+.idea
+*.swp
+*.swo
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info
+dist
+build
+*.egg
+.eggs
+
+# Virtual environments
+venv
+.venv
+env
+.env
+
+# Testing
+.pytest_cache
+.coverage
+htmlcov
+tests/
+
+# Temporary files
+*.tmp
+*.log
+*.log.err
+.DS_Store
+Thumbs.db
+
+# Dev scripts (not needed in container)
+verify_*.py
+quick*.py
+health_check.py
+fix_quotes.py
+compare_tools.py
+roadmap_status.py
+test_min.py
+proof_all.py
+
+# Data files
+feedback.jsonl
+*.jsonl
+*.pcap
+*.pcapng
